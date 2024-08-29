@@ -1,0 +1,145 @@
+{
+  "portal": {
+    "base": {
+      "consumer": "Consumer",
+      "business": "Business",
+      "monthly_requied": "Monthly Payment Required",
+      "monthly_optional": "No Monthly Payment Required"
+    },
+    "product": {
+      "magnum": {
+        "name": "MAGNUM",
+        "description": "Largest long-term impact",
+        "pointIncrease": "86",
+        "pi_title": "Point Increase",
+        "pi_description": "Average FICO Score Increase",
+        "features": [
+          "Build a large amount of credit with a low monthly payment",
+          "Build $2,000 to $30,000 of installment credit history",
+          "Designed to build large credit – not savings",
+          "Starting at just $30 per month"
+        ],
+        "buttonText": "START MAGNUM",
+        "learnMoreText": "Learn More",
+        "price": 25,
+        "second_price": "",
+        "monthly_range": "$30/mo to $350/mo",
+        "price_des_head": "Average FICO® Score 8 increase of 86 points",
+        "price_des": "in 12 months for MAGNUM 10000 accountholders with a starting credit score of 550 or less, for all accounts opened in 2021 with 12 or more months of account activity that made 12 on-time payments."
+      },
+      "revolv": {
+        "name": "Revolv",
+        "description": "Fastest way to establish and improve credit",
+        "pointIncrease": "62",
+        "pi_title": "Point Increase",
+        "pi_description": "Average FICO Score Increase",
+        "features": [
+          "Build up to $3,000 of revolving credit",
+          "Revolv can rapidly improve your credit utilization – and score",
+          "$99 per year – NO monthly payment required"
+        ],
+        "buttonText": "START REVOLV",
+        "learnMoreText": "Learn More",
+        "price": 99,
+        "second_price": "",
+        "monthly_range": "",
+        "price_des_head": "Average FICO® Score 8 increase of 62 points",
+        "price_des": "for Revolv accountholders with a starting credit score under 550 who opened an account in Q1 2023 and made optional monthly savings payments between $15 and $45."
+      },
+      "instal": {
+        "name": "Instal",
+        "description": "Entry level account for new builders",
+        "pointIncrease": "45",
+        "pi_title": "Point Increase",
+        "pi_description": "Average FICO Score Increase",
+        "features": [
+          "Balances building credit with building savings",
+          "Build up to $1,100 of installment credit",
+          "Starting at just $28 per month"
+        ],
+        "buttonText": "START INSTAL",
+        "learnMoreText": "Learn More",
+        "price": 15,
+        "second_price": 25,
+        "monthly_range": "$28/mo to $199/mo",
+        "price_des_head": "Average FICO® Score 8 increase of 45 points",
+        "price_des": "for Instal/CS Max accountholders with a starting credit score under 550 who opened an account in Q1 2023 and made at least 3 on-time payments."
+      }
+    },
+    "signin": {
+        "title": "Transform your life with stronger credit",
+        "email": "Email Address",
+        "password": "Password"
+    },
+    "signup": {
+      "terms": {
+        "title": "IMPORTANT INFORMATION ABOUT PROCEDURES FOR OPENING A NEW ACCOUNT:",
+        "description": "To help the government fight the funding of terrorism and money laundering activities, and the theft of your identity, Federal law requires all financial institutions to obtain, verify, and record information that identifies each person who opens an account. What this means for you: When you open an account, we will ask for your name, address, tax identification number (social security number or employer identification number), date of birth, and possibly other information that will allow us to identify you. We may also ask to see your driver's license or other identifying documents."
+      },
+      "copyright": "© %COPY_RIGHT% Austin Capital Bank SSB. All Rights Reserved.",
+      "company": "Austin Capital Bank SSB, Member FDIC.",
+      "step1": {
+        "title": "Hello",
+        "description": "We  need a few details to get you started."
+      },
+      "step2": {
+        "title": "Date of Birth",
+        "description": "You must be 18 years or older to open a Credit Bolt account."
+      },
+      "step3": {
+        "title": "Mobile Phone",
+        "description": "Your account is protectedusing two-factor authentication via mobile phone."
+      },
+      "step4": {
+        "title": "Personal Home Address",
+        "description": "Credit Bolt account are only available to resident of the US."
+      },
+      "step5": {
+        "title": "Password",
+        "description": "Secure your account by creating a unique password.",
+        "password": {
+          "title": "Minimum Requirements:",
+          "length": "8 characters",
+          "uppercaseLower": "Upper and lower case letters (e.g. A a)",
+          "number": "One number",
+          "special": "One symbol (e.g. # @ $ !)"
+        }
+      }
+    },
+    "identity": {
+      "step1": {
+        "title": "Identity",
+        "description": "Federal regulations require us to verify your Social Security Number. This won't affect your credit score.",
+        "helper": "Information secured with 256-bit encryption"
+      },
+      "step2": {
+        "title": "Verify Your Info",
+        "description": "We use this info to report your payment history and build your credit with the credit bureaus."
+      }
+    },
+    "payment": {
+      "title": "Payment",
+      "description": "To active your Credit Builder Account and begin building your credit, you will need to select a monthly Payment Method and pay annual Membership Fee of $99 today.",
+      "checking": {
+        "title": "Use your checking account",
+        "description": "Search for your Financial Institution and login to your account.",
+        "button": "Link Checking Account"
+      },
+      "card": {
+        "title": "Use a debit card",
+        "description": "Each payment subject to Convenience Fee of $0.30 plus 2.99% of the payment."
+      }
+    },
+    "dashboard": {
+      "welcome": {
+        "title": "Welcome Back!",
+        "description": "Check back soon to see when you’re eligible to open a credit builder account with us."
+      },
+      "product": {
+        "title": "Explore Our Products",
+        "description": "How else can we help you build?"
+      }
+    }
+    
+  }
+}

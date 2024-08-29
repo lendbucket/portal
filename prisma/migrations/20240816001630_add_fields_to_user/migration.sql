@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE `User` ADD COLUMN `middlename` VARCHAR(191) NULL,
+    ADD COLUMN `ssn` VARCHAR(191) NULL,
+    ADD COLUMN `suffix` VARCHAR(191) NULL;

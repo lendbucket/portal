@@ -21,7 +21,7 @@ export default async function RootLayout({
       <HydrateClient>
         <Suspense>
           <Header />
-          <Box mx='auto' px={{ base: '20px', md: '30px' }} pt='60px' minH='100vh' bg={'secGray.300'}>
+          <Box mx='auto' px={{ base: '20px', md: '30px' }} pt='60px' minH='100vh'>
             {children}
           </Box>
         </Suspense>

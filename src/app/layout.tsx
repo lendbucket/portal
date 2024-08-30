@@ -4,6 +4,7 @@ import { TRPCReactProvider } from "@/trpc/react";
 import { ChakraProviders } from "@/provider/ChakraProviders";
 import { GlobalStoreProvider } from "@/provider/GlobalStoreProvider";
 import { Suspense } from "react";
+import NextTopLoader from 'nextjs-toploader';
 
 export const metadata: Metadata = {
   title: process.env.APP_NAME,
@@ -20,6 +21,7 @@ export default function RootLayout({
         <GlobalStoreProvider>
           <ChakraProviders>
             <TRPCReactProvider>
+              <NextTopLoader showSpinner={false} />
               <Suspense>
                 {children}
               </Suspense>

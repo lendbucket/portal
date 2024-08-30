@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export * from './signup-steps';
 export * from './identity-steps';
 
@@ -14,3 +16,7 @@ export const getCopyRight = (copyright: string) => {
 }
 
 export const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+
+export const formatDate = (date: string) => {
+  return moment(date).format('MMM, DD')
+}

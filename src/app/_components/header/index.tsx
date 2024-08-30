@@ -132,7 +132,15 @@ const DesktopNav = () => {
                     {navItem.label}
                   </Link>
                 </PopoverTrigger>
-
+                {navItem.children && (
+                  <Icon
+                    as={ChevronDownIcon}
+                    color={'white'}
+                    transition={"all .25s ease-in-out"}
+                    w={4}
+                    h={4}
+                  />
+                )}
                 {navItem.children && (
                   <PopoverContent
                     border={0}

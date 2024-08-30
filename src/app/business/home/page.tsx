@@ -5,88 +5,34 @@ import { FaHandHoldingUsd } from "react-icons/fa";
 import Card from "@/app/_components/card/Card";
 import { useState } from "react";
 import { useRouter } from 'nextjs-toploader/app';
-import CreditBuilderLoanCard from "@/app/_components/products/CreditBuilderLoanCard";
 
-const products = [
-  {
-    id: '1234',
-    type: "cbl",
-    name: "MAGNUM",
-    autoPay: true,
-    nextPayment: 30,
-    progress: 0,
-    tracks: [
-      { month: 'Jan', status: true},
-      { month: 'Feb', status: true},
-      { month: 'Mar', status: true},
-      { month: 'Apr', status: false},
-      { month: 'May', status: true},
-    ],
-    dueDate: '2024-09-12',
-    createdAt: '2024-09-12',
-  },
-  {
-    id: '1234',
-    type: "cbl",
-    name: "MAGNUM",
-    autoPay: false,
-    nextPayment: 50,
-    progress: 10,
-    tracks: [
-      { month: 'Jan', status: true},
-      { month: 'Feb', status: true},
-      { month: 'Mar', status: true},
-      { month: 'Apr', status: false},
-      { month: 'May', status: true},
-    ],
-    dueDate: '2024-09-23',
-    createdAt: '2024-09-12',
-  },
-  {
-    id: '1234',
-    type: "cbl",
-    name: "MAGNUM",
-    autoPay: false,
-    nextPayment: 50,
-    progress: 10,
-    tracks: [
-      { month: 'Jan', status: true},
-      { month: 'Feb', status: true},
-      { month: 'Mar', status: true},
-      { month: 'Apr', status: false},
-      { month: 'May', status: true},
-    ],
-    dueDate: '2024-09-23',
-    createdAt: '2024-09-12',
-  }
-]
-export default function ConsumerHome() {
-
+export default function BusinessHome() {
   const router = useRouter();
-  const [isBusiness, setIsBusiness] = useState(false)
+  const [isBusiness, setIsBusiness] = useState(true)
   const handlePortalPlace = (e: any) => {
     setIsBusiness(!isBusiness)
-    if (e.target.checked) {
-      router.push('/business/home');
+    console.log(e.target.checked)
+    if(!e.target.checked){
+      router.push('/consumer/home');
     }
   }
 
   return (
     <Box className="w-full" >
-      <Container maxW='8xl'>
+      <Container maxW='7xl'>
         <Flex py={5}>
           <FormControl as={Flex} justifyContent={'end'} alignItems={'center'} gap={3}>
             <FormLabel htmlFor='isChecked' m={0}>{lang.portal.base.consumer}</FormLabel>
-            <Switch id='isChecked' colorScheme={'lime'} isChecked={isBusiness} onChange={handlePortalPlace} />
+            <Switch id='isChecked' colorScheme={'lime'} isChecked={isBusiness} onChange={handlePortalPlace}  />
             <FormLabel htmlFor='isChecked' m={0}>{lang.portal.base.business}</FormLabel>
           </FormControl>
         </Flex>
         <HStack spacing={5} py={5}>
           <Grid
             w={'full'}
-            templateRows={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
+            templateRows={`repeat(2, 1fr)`}
             templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(4, 1fr)' }}
-            gap={5}
+            gap={10}
           >
             <GridItem w='100%' h='100%' colSpan={1}>
               <VStack spacing={5}>
@@ -130,29 +76,6 @@ export default function ConsumerHome() {
               </VStack>
             </GridItem>
             <GridItem w='100%' h='100%' colSpan={3}>
-              <VStack spacing={5}>
-                <Card p={10} border={'none'} boxShadow={'0 1px 8px #4444441f'}>
-                  <Stack alignItems={'center'}>
-                    <Text fontSize={'1.25rem'} fontWeight={600}>Building your credit made simple.</Text>
-                  </Stack>
-                </Card>
-                <Grid
-                  w={'full'}
-                  templateRows={`repeat(1, 1fr)`}
-                  templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)', xl: 'repeat(3, 1fr)' }}
-                  gap={5}
-                >
-                  {products?.map((product: any, index: number) => {
-                    if (product.type === 'cbl') {
-                      return (
-                        <GridItem key={index} maxW={{ base: 'full', md: '420px', xl: '336px' }} w={'full'} h='100%'>
-                          <CreditBuilderLoanCard data={product} />
-                        </GridItem>
-                      )
-                    }
-                  })}
-                </Grid>
-              </VStack>
             </GridItem>
           </Grid>
         </HStack>

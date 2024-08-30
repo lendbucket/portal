@@ -68,7 +68,7 @@ export default function Page() {
       return
     }
     console.log("Verify")
-    generateLinkTokenForIdv.mutate({ userId: info.id, email: info.email })
+    generateLinkTokenForIdv.mutateAsync({ userId: info.id, email: info.email })
   }, [info])
 
   return (

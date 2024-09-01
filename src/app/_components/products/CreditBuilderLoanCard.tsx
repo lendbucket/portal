@@ -13,7 +13,7 @@ export const CreditBuilderLoanCard = ({ data }: { data: CreditBuilderLoanProps }
 
       <HStack w={'full'} justifyContent={'space-between'}>
         <Stack spacing={0}>
-          <Text fontWeight={600}>{data?.name}</Text>
+          <Text fontWeight={600} fontSize={'1.25rem'}>{data?.name}</Text>
           <Text fontSize={'0.75rem'} color={`brand.600`}>Credit Builder Loan</Text>
         </Stack>
         <Link as={NextLink} href={'#'}>

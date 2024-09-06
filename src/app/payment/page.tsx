@@ -1,18 +1,24 @@
 
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
-import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, Container, Flex, Heading, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Radio, RadioGroup, Stack, Text, useDisclosure, useToast, VStack } from "@chakra-ui/react";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, Container, Flex, Heading, HStack, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Radio, RadioGroup, Stack, StackDivider, Text, useDisclosure, useToast, VStack } from "@chakra-ui/react";
 import { api } from "@/trpc/react";
 import { useGlobalStore } from "@/provider/GlobalStoreProvider";
 import lang from '@/snippet/en.json'
 import Card from "@/app/_components/card/Card";
 import TransferLink from "@/app/_components/plaid/TransferLink";
 import { generateBill, MEMBERSHIP_FEE } from "../../utils/plaid";
+import { useSearchParams } from "next/navigation";
+import { formatPrice, productOneTimeFees } from "@/utils";
 
 export default function Page() {
   const toast = useToast()
+  // const [total, setTotal] = useState(0);
+  const [oneTimeFee, setOneTimeFee] = useState(0);
+  const [subscription, setSubscription] = useState(0);
   const [value, setValue] = useState('checking');
+  const params = useSearchParams()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { info, plaid, bill, verifyStatus, setLinkToken, setHostedLinkURL, setTransferIntentId, setPaymentType, setBill, resetStore } = useGlobalStore(
     (state: any) => state,
@@ -67,64 +73,90 @@ export default function Page() {
     setPaymentType(e)
   }
 
+  const total = useMemo(() => (oneTimeFee + subscription), [oneTimeFee, subscription])
+
   useEffect(() => {
     setPaymentType('checking')
-    if (!info.id || !info.firstname || !info.lastname) {
-      return
-    }
-    const billDescription = "Monthly Membership Charge"
-    const bill = generateBill(info.id, MEMBERSHIP_FEE, billDescription)
-    setBill(bill)
+    const product = params.get('product_option') || 'revolv';
+    setOneTimeFee(productOneTimeFees[product].oneTimeFee)
+    setSubscription(productOneTimeFees[product].subscription)
+    // if (!info.id || !info.firstname || !info.lastname) {
+    //   return
+    // }
+    // const billDescription = "Monthly Membership Charge"
+    // const bill = generateBill(info.id, MEMBERSHIP_FEE, billDescription)
+    // setBill(bill)
 
-    generateLinkTokenForTransfer.mutateAsync({
-      userId: info.id,
-      legalName: legalName,
-      accountId: null,
-      billId: bill?.id,
-      amount: MEMBERSHIP_FEE,
-      accessToken: '',
-      description: "Membership Fee"
-    })
-  }, [info])
+    // generateLinkTokenForTransfer.mutateAsync({
+    //   userId: info.id,
+    //   legalName: legalName,
+    //   accountId: null,
+    //   billId: bill?.id,
+    //   amount: MEMBERSHIP_FEE,
+    //   accessToken: '',
+    //   description: "Membership Fee"
+    // })
+  }, [params])
 
   return (
     <>
       <Suspense>
         <Container maxW='8xl' display={'flex'} justifyContent={'center'}>
-          <Card maxW='lg' py={16} px={10} h={'full'}>
-            <VStack mb={6} alignItems={'start'}>
-              <Heading as={'h2'} fontSize={'1.75rem'}>{lang.portal.payment.title}</Heading>
-              <Text color={'gray.600'}>{lang.portal.payment.description}</Text>
-            </VStack>
-            <Flex w={'full'} mt={6} justifyContent={'space-between'} gap={4}>
-              <RadioGroup onChange={(e) => handlePaymentType(e)} value={value}>
-                <Stack spacing={5}>
-                  <Box borderWidth={value === 'checking' ? '2px' : '1px'} borderRadius="md" p={4} borderColor={value === 'checking' ? 'lime.500' : 'gray.200'}>
-                    <Radio value="checking" colorScheme={'lime'}>
-                      <Text fontWeight="bold">{lang.portal.payment.checking.title}</Text>
-                      <Text fontSize="sm" color="gray.600" mb={3}>
-                        {lang.portal.payment.checking.description}
-                      </Text>
-                      {value === 'checking' && (
-                        <TransferLink
-                          label={lang.portal.payment.checking.button}
-                          isDisabled={generateLinkTokenForTransfer.isPending}
-                          isLoading={transferRecurringCreate.isPending || registerUser.isPending}
-                          onAction={handleTransfer} />
-                      )}
-                    </Radio>
-                  </Box>
-                  <Box borderWidth={value === 'debit' ? '2px' : '1px'} borderRadius="md" p={4} borderColor={value === 'debit' ? 'lime.500' : 'gray.200'}>
-                    <Radio value="debit" colorScheme={'lime'}>
-                      <Text fontWeight="bold">{lang.portal.payment.card.title}</Text>
-                      <Text fontSize="sm" color="gray.600">
-                        {lang.portal.payment.card.description}
-                      </Text>
-                    </Radio>
-                  </Box>
+          <Card maxW='5xl' py={10} px={8} h={'full'}>
+            <HStack spacing={10} alignItems={'start'} justifyContent={'space-between'} divider={<StackDivider borderColor={'gray.300'} />}>
+              <Stack spacing={6}>
+                <VStack mb={6} alignItems={'start'}>
+                  <Heading as={'h2'} fontSize={'1.5rem'}>{lang.portal.payment.title}</Heading>
+                  <Text color={'gray.600'}>{lang.portal.payment.description}</Text>
+                  <Heading as={'h2'} fontSize={'1.75rem'} mt={3}>{formatPrice(total)}</Heading>
+                </VStack>
+                <Stack spacing={5} divider={<StackDivider borderColor={'gray.300'} />} fontSize={'0.875rem'}>
+                  <Stack>
+                    <Flex w={'full'} justifyContent={'space-between'} gap={4}>
+                      <Text>Product One time Fee</Text>
+                      <Text fontWeight={600}>{formatPrice(oneTimeFee)}</Text>
+                    </Flex>
+                    <Flex w={'full'} justifyContent={'space-between'} gap={4}>
+                      <Text>Monthly Subscription</Text>
+                      <Text fontWeight={600}>{formatPrice(subscription)}</Text>
+                    </Flex>
+                  </Stack>
+                  <Flex w={'full'} justifyContent={'space-between'} gap={4}>
+                    <Text>Total due today</Text>
+                    <Text fontWeight={600}>{formatPrice(total)}</Text>
+                  </Flex>
                 </Stack>
-              </RadioGroup>
-            </Flex>
+              </Stack>
+              <Flex w={'full'} mt={6} justifyContent={'space-between'} gap={4}>
+                <RadioGroup onChange={(e) => handlePaymentType(e)} value={value}>
+                  <Stack spacing={5}>
+                    <Box borderWidth={value === 'checking' ? '2px' : '1px'} borderRadius="md" p={4} borderColor={value === 'checking' ? 'lime.500' : 'gray.200'}>
+                      <Radio value="checking" colorScheme={'lime'}>
+                        <Text fontWeight="bold">{lang.portal.payment.checking.title}</Text>
+                        <Text fontSize="sm" color="gray.600" mb={3}>
+                          {lang.portal.payment.checking.description}
+                        </Text>
+                        {value === 'checking' && (
+                          <TransferLink
+                            label={lang.portal.payment.checking.button}
+                            isDisabled={generateLinkTokenForTransfer.isPending}
+                            isLoading={transferRecurringCreate.isPending || registerUser.isPending}
+                            onAction={handleTransfer} />
+                        )}
+                      </Radio>
+                    </Box>
+                    <Box borderWidth={value === 'debit' ? '2px' : '1px'} borderRadius="md" p={4} borderColor={value === 'debit' ? 'lime.500' : 'gray.200'}>
+                      <Radio value="debit" colorScheme={'lime'}>
+                        <Text fontWeight="bold">{lang.portal.payment.card.title}</Text>
+                        <Text fontSize="sm" color="gray.600">
+                          {lang.portal.payment.card.description}
+                        </Text>
+                      </Radio>
+                    </Box>
+                  </Stack>
+                </RadioGroup>
+              </Flex>
+            </HStack>
           </Card>
         </Container>
         <Modal closeOnOverlayClick={false} isOpen={isOpen} size={'3xl'} onClose={onClose} >

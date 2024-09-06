@@ -19,7 +19,8 @@ export default function Page() {
   const defaultValues = { ...info };
   const handleSubmit = (values: Record<string, any>) => {
     setIsLoading(true)
-    router.push(`/verify${params.get('product') ? `?product=${params.get('product')}` : ''}`);
+    // router.push(`/verify${params.get('product') ? `?product=${params.get('product')}` : ''}`);
+    router.push(`/payment${params.get('product_option') ? `?product_option=${params.get('product_option')}` : ''}`);
   };
 
   return (

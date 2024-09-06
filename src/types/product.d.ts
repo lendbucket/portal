@@ -8,6 +8,7 @@ declare global {
     nextPayment: number | string;
     progress: number;
     tracks: any;
+    inProgress: boolean;
     dueDate: string;
     createdAt: string;
   }

@@ -25,6 +25,7 @@ const products = [
       { month: 'Apr', status: false },
       { month: 'May', status: true },
     ],
+    inProgress: false,
     dueDate: '2024-09-12',
     createdAt: '2024-09-12',
   },
@@ -42,6 +43,7 @@ const products = [
       { month: 'Apr', status: false },
       { month: 'May', status: true },
     ],
+    inProgress: false,
     dueDate: '2024-09-23',
     createdAt: '2024-09-12',
   },
@@ -59,9 +61,28 @@ const products = [
       { month: 'Apr', status: false },
       { month: 'May', status: true },
     ],
+    inProgress: true,
     dueDate: '2024-09-23',
     createdAt: '2024-09-12',
-  }
+  },
+  {
+    id: '1234',
+    type: "revolv",
+    name: "Revolv",
+    autoPay: false,
+    nextPayment: 50,
+    progress: 10,
+    tracks: [
+      { month: 'Jan', status: true },
+      { month: 'Feb', status: true },
+      { month: 'Mar', status: true },
+      { month: 'Apr', status: false },
+      { month: 'May', status: true },
+    ],
+    inProgress: true,
+    dueDate: '2024-09-23',
+    createdAt: '2024-09-12',
+  },
 ]
 export default function ConsumerHome() {
 
